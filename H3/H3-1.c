@@ -9,7 +9,8 @@ int n;
 #define MAX(a, b) ((a) > (b) ? (a) : (b))
 #define MAX3(a, b, c) MAX(MAX(a, b), c)
 
-int max_subarray_sum(int left, int right) { // NOLINT(*-no-recursion)
+int max_subarray_sum(int left, int right)
+{ // NOLINT(*-no-recursion)
     if (right - left <= 1) {
         return data[left];
     }
@@ -38,7 +39,8 @@ int max_subarray_sum(int left, int right) { // NOLINT(*-no-recursion)
     return MAX3(left_sum, right_sum, left_max_sum + right_max_sum);
 }
 
-int main() {
+int main()
+{
     scanf("%d", &n);
     for (int i = 0; i < n; i++) {
         scanf("%d", data + i);

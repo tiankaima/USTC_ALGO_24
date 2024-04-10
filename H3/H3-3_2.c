@@ -4,7 +4,8 @@ int n;
 int data[1 * 100000000 + 1];
 int k;
 
-int main() {
+int main()
+{
     scanf("%d %d", &n, &k);
 
     for (int i = 0; i < n; i++) {

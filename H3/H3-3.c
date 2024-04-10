@@ -1,49 +1,16 @@
-#pragma clang diagnostic push
-#pragma ide diagnostic ignored "cert-err34-c"
 #include "stdio.h"
 
 int n;
 int data[8 * 1000000 + 1];
 int k;
 
-//void quicksort(int left, int right) { // NOLINT(*-no-recursion)
-//    if (right - left <= 1) {
-//        return;
-//    }
-//
-//    int pivot = data[(left + right) / 2];
-//    int i = left;
-//    int j = right - 1;
-//
-//    while (i <= j) {
-//        while (data[i] < pivot) {
-//            i++;
-//        }
-//
-//        while (data[j] > pivot) {
-//            j--;
-//        }
-//
-//        if (i <= j) {
-//            int tmp = data[i];
-//            data[i] = data[j];
-//            data[j] = tmp;
-//
-//            i++;
-//            j--;
-//        }
-//    }
-//
-//    quicksort(left, j + 1);
-//    quicksort(i, right);
-//}
-
 #define MAX(a, b) ((a) > (b) ? (a) : (b))
 #define MIN(a, b) ((a) < (b) ? (a) : (b))
 
 #pragma clang diagnostic push
 #pragma ide diagnostic ignored "misc-no-recursion"
-void merge_sort_with_k_max(int left, int right) {
+void merge_sort_with_k_max(int left, int right)
+{
     // this would mean:
     // 1: everything is sorted max to min,
     // 2: only the first k values have meanings, other shall be discarded
@@ -84,17 +51,17 @@ void merge_sort_with_k_max(int left, int right) {
 }
 #pragma clang diagnostic pop
 
-int main() {
+int main()
+{
     scanf("%d %d", &n, &k);
 
     for (int i = 0; i < n; i++) {
         scanf("%d", &data[i]);
     }
 
-//    quicksort(0, n);
+    //    quicksort(0, n);
 
     merge_sort_with_k_max(0, n);
-
 
     for (int i = 0; i < n; i++) {
         printf("%d ", data[i]);
@@ -105,4 +72,3 @@ int main() {
 
     return 0;
 }
-#pragma clang diagnostic pop

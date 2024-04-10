@@ -4,7 +4,8 @@ int n;
 int data[1 * 100000000 + 1];
 int k;
 
-void select_sort(int left, int right) {
+void select_sort(int left, int right)
+{
     int max = data[left];
     int max_index = left;
     for (int i = left + 1; i < right; i++) {
@@ -19,7 +20,8 @@ void select_sort(int left, int right) {
     data[max_index] = tmp;
 }
 
-int main() {
+int main()
+{
     scanf("%d %d", &n, &k);
 
     for (int i = 0; i < n; i++) {
