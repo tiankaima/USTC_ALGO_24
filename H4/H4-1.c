@@ -66,7 +66,7 @@ struct RB_Node* construct_BST_preorder(int* values, bool* reds, int i, int j) //
     return node;
 }
 
-int check_and_return_black_height(struct RB_Node* node)
+int check_and_return_black_height(struct RB_Node* node) // NOLINT(*-no-recursion)
 {
     if (node == NULL) {
         return 1;
@@ -85,6 +85,16 @@ int check_and_return_black_height(struct RB_Node* node)
     } else {
         return left_bh + 1;
     }
+}
+
+void free_tree(struct RB_Node* node) // NOLINT(*-no-recursion)
+{
+    if (node == NULL)
+        return;
+
+    free_tree(node->left_child_);
+    free_tree(node->right_child_);
+    free(node);
 }
 
 int main()
@@ -112,6 +122,8 @@ int main()
             printf("Y\n");
         else
             printf("N\n");
+
+        free_tree(root);
     }
 
     return 0;
