@@ -46,20 +46,20 @@ public:
 
     void print(int depth = 0) // NOLINT(*-no-recursion)
     {
-        std::cout << value_ << "\t";
-        depth++;
+        std::cout << value_ << "→   ";
 
         if (right_child_ != nullptr)
-            right_child_->print(depth);
+            right_child_->print(depth + 1);
 
         std::cout << std::endl;
         for (int i = 0; i < depth; i++)
-            std::cout << "\t";
+            std::cout << "    ";
+        std::cout << " ↳   ";
 
         if (left_child_ != nullptr)
-            left_child_->print(depth);
+            left_child_->print(depth + 1);
 
-        if (depth == 1)
+        if (depth == 0)
             std::cout << std::endl;
     }
 
@@ -212,7 +212,7 @@ public:
 
 int main()
 {
-    auto root = new Binary_Node(1);
+    auto root = new Binary_Node<int>(1);
 
     for (const auto i : { 2, 3, 12, 8, 9, 10, 5, 6 }) {
         root->insert(i);

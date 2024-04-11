@@ -2,7 +2,7 @@
 cmake_minimum_required(VERSION 3.10)
 project(ustc_algo_24)
 
-set(CMAKE_CXX_STANDARD 20)
+set(CMAKE_CXX_STANDARD 14)
 set(CMAKE_C_STANDARD 11)
 
 # Find all .c and .cpp files in subdirectories
