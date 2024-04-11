@@ -10,8 +10,11 @@ struct RB_Node {
 
     struct RB_Node* left_child_;
     struct RB_Node* right_child_;
-    struct RB_Node* parent_;
+    //    struct RB_Node* parent_;
 };
+
+struct RB_Node* nodes = NULL;
+int current_node = 0;
 
 int check_and_return_black_height(struct RB_Node* node);
 
@@ -44,12 +47,12 @@ struct RB_Node* construct_BST_preorder(int* values, bool* reds, int i, int j) //
     if (i >= j)
         return NULL;
 
-    struct RB_Node* node = (struct RB_Node*)malloc(sizeof(struct RB_Node));
+    struct RB_Node* node = &nodes[current_node++];
     node->value_ = values[i];
     node->red_ = reds[i];
-    node->left_child_ = NULL;
-    node->right_child_ = NULL;
-    node->parent_ = NULL;
+    //    node->left_child_ = NULL;
+    //    node->right_child_ = NULL;
+    //    node->parent_ = NULL;
 
     int k = i + 1;
     while (k < j && values[k] < values[i])
@@ -58,10 +61,10 @@ struct RB_Node* construct_BST_preorder(int* values, bool* reds, int i, int j) //
     node->left_child_ = construct_BST_preorder(values, reds, i + 1, k);
     node->right_child_ = construct_BST_preorder(values, reds, k, j);
 
-    if (node->left_child_ != NULL)
-        node->left_child_->parent_ = node;
-    if (node->right_child_ != NULL)
-        node->right_child_->parent_ = node;
+    //    if (node->left_child_ != NULL)
+    //        node->left_child_->parent_ = node;
+    //    if (node->right_child_ != NULL)
+    //        node->right_child_->parent_ = node;
 
     return node;
 }
@@ -72,15 +75,23 @@ int check_and_return_black_height(struct RB_Node* node) // NOLINT(*-no-recursion
         return 1;
     }
 
+    if (node->red_ && ((node->left_child_ != NULL && node->left_child_->red_) || (node->right_child_ != NULL && node->right_child_->red_)))
+        return -1;
+
     int left_bh = check_and_return_black_height(node->left_child_);
+
+    if (left_bh == -1)
+        return -1;
+
     int right_bh = check_and_return_black_height(node->right_child_);
 
-    if (left_bh == -1 || right_bh == -1 || left_bh != right_bh)
+    if (right_bh == -1)
+        return -1;
+
+    if (left_bh != right_bh)
         return -1;
 
     if (node->red_) {
-        if ((node->left_child_ != NULL && node->left_child_->red_) || (node->right_child_ != NULL && node->right_child_->red_))
-            return -1;
         return left_bh;
     } else {
         return left_bh + 1;
@@ -99,31 +110,32 @@ void free_tree(struct RB_Node* node) // NOLINT(*-no-recursion)
 
 int main()
 {
-    int n;
+    int n, size, tmp;
     scanf("%d", &n);
 
+    nodes = malloc(sizeof(struct RB_Node) * (20000 + 1));
+
     for (int i = 0; i < n; i++) {
-        int size;
         scanf("%d", &size);
 
-        int* values = (int*)malloc(size * sizeof(int));
-        bool* reds = (bool*)malloc(size * sizeof(bool));
+        static int values[20000 + 1];
+        static bool reds[20000 + 1];
 
         for (int j = 0; j < size; j++) {
-            int tmp;
             scanf("%d", &tmp);
             values[j] = (tmp > 0) ? tmp : -tmp;
             reds[j] = (tmp > 0) ? false : true;
         }
 
+        current_node = 0;
         struct RB_Node* root = construct_BST_preorder(values, reds, 0, size);
-        //        print(root, 0);
+
         if (check_and_return_black_height(root) != -1)
             printf("Y\n");
         else
             printf("N\n");
 
-        free_tree(root);
+        //        free_tree(root);
     }
 
     return 0;
