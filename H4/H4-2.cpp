@@ -127,6 +127,17 @@ public:
             successor->remove_self();
         }
     }
+
+    void free() // NOLINT(*-no-recursion)
+    {
+        if (left_child_ != nullptr) {
+            left_child_->free();
+        }
+        if (right_child_ != nullptr) {
+            right_child_->free();
+        }
+        delete this;
+    }
 };
 
 typedef struct {
@@ -176,5 +187,8 @@ int main()
             printf("0\n");
         }
     }
+
+    if (root != nullptr)
+        root->free();
     return 0;
 }

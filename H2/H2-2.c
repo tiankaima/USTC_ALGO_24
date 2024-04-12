@@ -7,6 +7,16 @@ struct queue_item {
     struct queue_item* next;
 };
 
+void free_queue(struct queue_item* head)
+{
+    struct queue_item* tmp;
+    while (head != NULL) {
+        tmp = head;
+        head = head->next;
+        free(tmp);
+    }
+}
+
 int main()
 {
     int n;
@@ -51,7 +61,6 @@ int main()
         case 4:
             if (head == NULL) {
                 printf("0\n");
-                ;
             } else {
                 int size = 1;
                 struct queue_item* tmp_head = head;
@@ -66,4 +75,7 @@ int main()
             break;
         }
     }
+
+    free_queue(head);
+    return 0;
 }

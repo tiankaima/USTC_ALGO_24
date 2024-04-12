@@ -1,8 +1,11 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-long long merge_sort(int* arr, int* tmp, int left, int right)
-{ // NOLINT(*-no-recursion)
+long long merge_sort(int* arr, int* tmp, int left, int right) // NOLINT(*-no-recursion)
+{
+    if (arr == NULL || tmp == NULL)
+        return 0;
+
     if (left >= right)
         return 0;
 
@@ -37,7 +40,7 @@ int main()
         scanf("%d", &arr[i]);
     }
 
-    long long inversion = 0;
+    long long inversion;
 
     int* tmp = (int*)malloc(n * sizeof(int));
     inversion = merge_sort(arr, tmp, 0, n - 1);

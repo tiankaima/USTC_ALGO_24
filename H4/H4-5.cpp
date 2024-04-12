@@ -29,16 +29,8 @@ int main()
 
             M(i, j) = std::numeric_limits<int>::max();
             for (int k = i; k < j; k++) {
-//                std::cout << "M(" << i << "," << k << ")=" << M(i, k) << std::endl;
-//                std::cout << "M(" << k + 1 << "," << j << ")=" << M(k + 1, j) << std::endl;
-//                std::cout << "ps[" << i - 1 << "]=" << ps[i - 1] << std::endl;
-//                std::cout << "ps[" << k << "]=" << ps[k] << std::endl;
-//                std::cout << "ps[" << j << "]=" << ps[j] << std::endl;
-
                 M(i, j) = std::min(M(i, j), M(i, k) + M(k + 1, j) + ps[i - 1] * ps[k] * ps[j]);
             }
-
-//            std::cout << "M(" << i << "," << j << ")=" << M(i, j) << std::endl;
         }
     }
     std::cout << M(1, n) << std::endl;

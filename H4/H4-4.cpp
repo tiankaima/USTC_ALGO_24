@@ -1,6 +1,6 @@
 #include <iostream>
 
-int LIS(int* array, int size)
+int LIS(const int* array, int size)
 {
     int* dp = new int[size];
     int max = 0;
@@ -19,7 +19,7 @@ int LIS(int* array, int size)
     return max;
 }
 
-int LCS(int* array_a, int* array_b, int size)
+int LCS(const int* array_a, const int* array_b, int size)
 {
     // call LIS:
     int* index_a = new int[size];
@@ -41,7 +41,7 @@ int LCS(int* array_a, int* array_b, int size)
 int main()
 {
     std::ios_base::sync_with_stdio(false);
-    std::cin.tie(NULL);
+    std::cin.tie(nullptr);
     int n;
     std::cin >> n;
 

@@ -1,6 +1,3 @@
-#pragma clang diagnostic push
-#pragma ide diagnostic ignored "cert-err34-c"
-
 #include <stdio.h>
 
 int data[2 * 100000 + 1];
@@ -9,8 +6,8 @@ int n;
 #define MAX(a, b) ((a) > (b) ? (a) : (b))
 #define MAX3(a, b, c) MAX(MAX(a, b), c)
 
-int max_subarray_sum(int left, int right)
-{ // NOLINT(*-no-recursion)
+int max_subarray_sum(int left, int right) // NOLINT(*-no-recursion)
+{
     if (right - left <= 1) {
         return data[left];
     }
@@ -50,5 +47,3 @@ int main()
 
     return 0;
 }
-
-#pragma clang diagnostic pop

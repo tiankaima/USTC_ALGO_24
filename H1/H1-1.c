@@ -3,7 +3,7 @@
 
 int* gen_shuffled_array(int n)
 {
-    int cur = 0;
+    int cur;
     int offset = 1;
     int flip = 0;
     int next_start = 0;
@@ -35,7 +35,7 @@ int* gen_shuffled_array(int n)
     return result;
 }
 
-void test_main()
+__attribute__((unused)) void test_main()
 {
     int* index = gen_shuffled_array(7);
     int k[7] = { 1, 2, 3, 4, 6, 5, 7 };
@@ -48,6 +48,8 @@ void test_main()
     for (int i = 0; i < 7; i++) {
         printf("%d ", result[i]);
     }
+
+    free(index);
 }
 
 int main()
@@ -66,4 +68,9 @@ int main()
     for (int i = 0; i < n; i++) {
         printf("%d ", result[i]);
     }
+
+    free(input);
+    free(index);
+    free(result);
+    return 0;
 }

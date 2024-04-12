@@ -1,6 +1,3 @@
-#pragma clang diagnostic push
-#pragma ide diagnostic ignored "cert-err34-c"
-
 #include "math.h"
 #include "stdio.h"
 
@@ -13,7 +10,6 @@ double ans = 1e9;
 #define MAX(a, b) ((a) > (b) ? (a) : (b))
 #define MIN(a, b) ((a) < (b) ? (a) : (b))
 #define MAX3(a, b, c) MAX(MAX(a, b), c)
-#define MIN3(a, b, c) MIN(MIN(a, b), c)
 
 void update_ans(int i, int j)
 {
@@ -38,8 +34,8 @@ void swap(int i, int j)
     ys[j] = tmp;
 }
 
-void quicksort_by_x(int left, int right)
-{ // NOLINT(*-no-recursion)
+void quicksort_by_x(int left, int right) // NOLINT(*-no-recursion)
+{
     if (right - left <= 1) {
         return;
     }
@@ -69,8 +65,8 @@ void quicksort_by_x(int left, int right)
     quicksort_by_x(i, right);
 }
 
-void quicksort_by_y(int left, int right)
-{ // NOLINT(*-no-recursion)
+void quicksort_by_y(int left, int right) // NOLINT(*-no-recursion)
+{
     if (right - left <= 1) {
         return;
     }
@@ -100,74 +96,14 @@ void quicksort_by_y(int left, int right)
     quicksort_by_y(i, right);
 }
 
-void insert_sort_by_y(int left, int right)
+void min_distance(int left, int right) // NOLINT(*-no-recursion)
 {
-    for (int i = left + 1; i < right; i++) {
-        int tmp_x = xs[i];
-        int tmp_y = ys[i];
-        int j = i - 1;
-        while (j >= left && ys[j] > tmp_y) {
-            xs[j + 1] = xs[j];
-            ys[j + 1] = ys[j];
-            j--;
-        }
-        xs[j + 1] = tmp_x;
-        ys[j + 1] = tmp_y;
-    }
-}
-
-void merge_by_y(int left, int mid, int right)
-{
-    int i = left;
-    int j = mid;
-    int k = 0;
-
-    static int buffer_xs[200000 + 1];
-    static int buffer_ys[200000 + 1];
-
-    while (i < mid && j < right) {
-        if (ys[i] < ys[j]) {
-            buffer_xs[k] = xs[i];
-            buffer_ys[k] = ys[i];
-            i++;
-        } else {
-            buffer_xs[k] = xs[j];
-            buffer_ys[k] = ys[j];
-            j++;
-        }
-        k++;
-    }
-
-    while (i < mid) {
-        buffer_xs[k] = xs[i];
-        buffer_ys[k] = ys[i];
-        i++;
-        k++;
-    }
-
-    while (j < right) {
-        buffer_xs[k] = xs[j];
-        buffer_ys[k] = ys[j];
-        j++;
-        k++;
-    }
-
-    for (int i = 0; i < k; i++) {
-        xs[left + i] = buffer_xs[i];
-        ys[left + i] = buffer_ys[i];
-    }
-}
-
-void min_distance(int left, int right)
-{ // NOLINT(*-no-recursion)
     if (right - left <= 3) {
         for (int i = left; i < right; i++) {
             for (int j = i + 1; j < right; j++) {
                 update_ans(i, j);
             }
         }
-        //        quicksort_by_y(left, right);
-        //        insert_sort_by_y(left, right);
         return;
     }
 
@@ -187,11 +123,7 @@ void min_distance(int left, int right)
             continue;
         }
 
-        for (int j = buffer_index - 1; j >= 0
-             //        && ys[i] - buffer_ys[j] < ans
-             ;
-             j--) {
-            //            update_ans(i, j);
+        for (int j = buffer_index - 1; j >= 0; j--) {
             update_ans_with(xs[i], ys[i], buffer_xs[j], buffer_ys[j]);
         }
 
@@ -211,13 +143,7 @@ int main()
 
     quicksort_by_x(0, n);
 
-    //    for (int i = 0; i < n; i++) {
-    //        printf("%u %u\n", xs[i], ys[i]);
-    //    }
-
     min_distance(0, n);
     printf("%.4f\n", ans);
     return 0;
 }
-
-#pragma clang diagnostic pop

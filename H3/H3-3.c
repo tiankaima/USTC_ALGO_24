@@ -7,9 +7,7 @@ int k;
 #define MAX(a, b) ((a) > (b) ? (a) : (b))
 #define MIN(a, b) ((a) < (b) ? (a) : (b))
 
-#pragma clang diagnostic push
-#pragma ide diagnostic ignored "misc-no-recursion"
-void merge_sort_with_k_max(int left, int right)
+void merge_sort_with_k_max(int left, int right) // NOLINT(*-no-recursion)
 {
     // this would mean:
     // 1: everything is sorted max to min,
@@ -49,7 +47,6 @@ void merge_sort_with_k_max(int left, int right)
         data[left + i_] = tmp[i_];
     }
 }
-#pragma clang diagnostic pop
 
 int main()
 {
